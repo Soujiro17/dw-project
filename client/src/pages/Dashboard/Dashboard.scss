@@ -1,0 +1,14 @@
+@import "../../consts/colors.scss";
+.dashboard {
+  min-height: 70vh;
+  height: 70vh;
+  border-top: 27px solid $grey;
+  display: flex;
+  justify-content: center;
+
+  .aside-nav,
+  .aside-right {
+    height: 100%;
+    width: 30vw;
+  }
+}

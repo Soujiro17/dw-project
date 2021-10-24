@@ -1,0 +1,23 @@
+@import "../../consts/colors.scss";
+
+.login-container {
+  min-height: 70vh;
+  height: 70vh;
+  width: 100vw;
+  border-top: 27px solid $grey;
+  display: flex;
+
+  .login-card-container {
+    display: flex;
+    padding-top: 30px;
+    justify-content: center;
+    width: 70%;
+  }
+
+  .login-image {
+    width: 30%;
+    img {
+      height: 100%;
+    }
+  }
+}

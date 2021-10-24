@@ -1,0 +1,33 @@
+import React from "react";
+import { Solicitud } from "../../pages/AdminDashboard/AdminDashboard";
+import { DateTime } from "luxon";
+import "./AdminDashboardSolicitud.scss";
+
+const AdminDashboardSolicitud = (solicitud: Solicitud) => {
+  return (
+    <tr key={solicitud.Id_solicitud}>
+      <td>{solicitud.Id_solicitud}</td>
+      <td>
+        {DateTime.fromISO(solicitud.Fecha_solicitud).toFormat("yyyy LLL dd")}
+      </td>
+      <td>{solicitud.Nombres}</td>
+      <td>{solicitud.Apellidos}</td>
+      <td>{solicitud.Rut}</td>
+      <td>{solicitud.Telefono}</td>
+      <td>{solicitud.Email}</td>
+      <td>
+        $
+        {solicitud.Monto.toLocaleString(undefined, {
+          style: "currency",
+          currency: "CLP",
+        })}
+      </td>
+      <td>
+        <button className="btn aprobar">Aprobar</button>
+        <button className="btn rechazar">Rechazar</button>
+      </td>
+    </tr>
+  );
+};
+
+export default AdminDashboardSolicitud;

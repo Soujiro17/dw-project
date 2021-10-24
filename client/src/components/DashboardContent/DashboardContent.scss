@@ -1,0 +1,39 @@
+@import "../../consts/colors.scss";
+
+.content {
+  height: 100%;
+  width: 40%;
+
+  .tus-lucas {
+    #tus {
+      color: $primary;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+
+    #lucas {
+      color: $rosado;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+  }
+
+  .content-body {
+    .lucas-ahorradas {
+      background: $lucasFondo;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 110px;
+      border-radius: 5px;
+      font-weight: normal;
+
+      #saldo {
+        color: $primary;
+        font-size: 30px;
+        font-weight: bolder;
+        margin-left: 5px;
+      }
+    }
+  }
+}

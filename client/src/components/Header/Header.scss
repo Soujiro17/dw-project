@@ -1,0 +1,39 @@
+@import "../../consts/colors.scss";
+
+header {
+  height: 11vh;
+  width: 100vw;
+  border-bottom: 10px solid;
+  border-image-slice: 1;
+  border-image-source: $primaryGradient;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .sesion {
+    margin-right: 50px;
+    display: flex;
+    p {
+      margin: 0px;
+    }
+    .info {
+      strong {
+        text-transform: uppercase;
+      }
+    }
+
+    .iconos {
+      margin-left: 50px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      color: $blackMenosTransparente;
+      cursor: pointer;
+
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

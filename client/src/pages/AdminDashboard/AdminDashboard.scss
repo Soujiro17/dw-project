@@ -1,0 +1,9 @@
+@import "../../consts/colors.scss";
+.admin-dashboard {
+  min-height: 70vh;
+  height: 70vh;
+  border-top: 27px solid $grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
