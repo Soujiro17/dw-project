@@ -18,12 +18,12 @@ Desarrollar una WebApp de AFP para permitir así a sus clientes realizar retiros
 
 Para lograr una correcta instalación del proyecto, debe tener la siguiente jerarquía de carpetas:
 
-.
-├── dw-project  
-│   ├── client  
-│   ├── package.json  
-│   ├── README.md  
-│   └── server
+.  
+└── dw-project  
+  ├── client  
+  ├── package.json  
+  ├── README.md  
+  └── server
 
 Para instalar los paquetes, dentro de las carpetas **_dw-project_**, **_client_** y **_server_** ejecutar el siguiente comando:  
  `npm install`  
