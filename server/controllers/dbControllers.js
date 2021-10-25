@@ -42,9 +42,10 @@ const updateData = async (tableName, attribute, id, data) => {
 
   for (const property in data) {
     sql += `${property}=${data[property]}`;
+    console.log(sql)
   }
 
-  sql = sql.slice(0, -1);
+  //sql = sql.slice(0, -1);
 
   return db.query(`UPDATE ${tableName} SET ${sql} WHERE ${attribute}=${id}`, {
     type: db.QueryTypes.UPDATE,
@@ -83,16 +84,6 @@ const getSolicitudes = () => {
 };
 
 const getSolicitudesCliente = (rut) => {
-<<<<<<< HEAD
-  return db.query(
-    `SELECT usuario.Rut, solicitud_de_retiro.Fecha_solicitud, solicitud_de_retiro.Monto, solicitud_de_retiro.Id_solicitud, solicitud_de_retiro.Aprobado  FROM usuario INNER JOIN solicitud_de_retiro WHERE usuario.Rut=solicitud_de_retiro.Rut_cliente AND solicitud_de_retiro.Rut_cliente=${rut}`,
-    { type: db.QueryTypes.SELECT }
-  );
-};
-
-const actualizarSolicitud = (tableName, attribute, id, data) => {
-=======
->>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
   return db.query(
     `SELECT usuario.Rut, usuario.Nombres, usuario.Apellidos, usuario.Email, usuario.Telefono, usuario.Saldo, solicitud_de_retiro.Fecha_solicitud, solicitud_de_retiro.Monto, solicitud_de_retiro.Id_solicitud, solicitud_de_retiro.Aprobado  FROM usuario INNER JOIN solicitud_de_retiro WHERE usuario.Rut=solicitud_de_retiro.Rut_cliente AND solicitud_de_retiro.Rut_cliente=${rut}`,
     { type: db.QueryTypes.SELECT }
@@ -110,10 +101,5 @@ module.exports = {
   alterTableMODIFY,
   dropTable,
   getSolicitudes,
-<<<<<<< HEAD
-  actualizarSolicitud,
-  getSolicitudesCliente
-=======
   getSolicitudesCliente,
->>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
 };

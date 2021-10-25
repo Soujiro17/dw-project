@@ -21,10 +21,12 @@ const Routes = () => {
           isAuthenticated={loggedIn}
           component={Dashboard}
         />
-
-         <Route exact path="/solicitudes">
-          <SolicitudesDashboard />
-        </Route>
+        <PrivateRoute
+          path="/solicitudes"
+          isAuthenticated={loggedIn}
+          component={SolicitudesDashboard}
+        />
+ 
         {/* <PrivateRoute
           path="/solicitudes/realizar"
           isAuthenticated={loggedIn}

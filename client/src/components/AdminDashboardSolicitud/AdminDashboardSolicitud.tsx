@@ -11,11 +11,10 @@ const AdminDashboardSolicitud: React.FC<{solicitud:Solicitud;  eliminarSolicitud
   const AprobationOfSolicitud = async (boolean: Boolean) =>{
     await axiosInstance
     .put("customer/actualizarSolicitud", {
-      rutCliente: solicitud.Rut, atributos: { Aprobado: boolean } },
+      id: solicitud.Id_solicitud, atributos: { Aprobado: boolean } },
     )
     .then((res) => {
       toast.success("Solicitud Actualizada");
-      console.log(res);
     })
     .catch((err) =>
       toast.error(

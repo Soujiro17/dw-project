@@ -1,14 +1,5 @@
 const express = require("express");
-<<<<<<< HEAD
-const {
-  getByID,
-  updateData,
-  actualizarSolicitud,
-  getSolicitudesCliente
-} = require("../controllers/dbControllers.js");
-=======
-const { getByID, updateData } = require("../controllers/dbControllers.js");
->>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
+const { getByID, updateData, getSolicitudesCliente } = require("../controllers/dbControllers.js");
 const auth = require("../middlewares/auth.js");
 const router = express.Router();
 
@@ -31,14 +22,8 @@ router.get("/info", auth, async (req, res) => {
 });
 
 router.get("/solicitudes", auth, async (req, res) => {
-<<<<<<< HEAD
-  const solicitudes = await getSolicitudesCliente(
-    req.user
-  );
-=======
   const solicitudes = await getSolicitudesCliente(req.user);
 
->>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
   if (!solicitudes.length)
     return res.status(400).json({
       status: 400,
@@ -50,20 +35,20 @@ router.get("/solicitudes", auth, async (req, res) => {
 
 
 router.put("/actualizarSolicitud", auth, async (req, res) => {
-  const { rutCliente, atributos } = req.body;
+  const { id, atributos } = req.body;
 
   try {
     await updateData(
       "solicitud_de_retiro",
-      "Rut_cliente",
-      rutCliente,
+      "Id_solicitud",
+      id,
       atributos
     );
     return res.status(200).json({
       status: 200,
       message: `Solicitud actualizada`,
     });
-  } catch {
+  } catch (error){
     return res.status(400).json({
       status: 400,
       message: "El usuario no existe",
