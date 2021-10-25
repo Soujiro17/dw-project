@@ -1,9 +1,5 @@
 const express = require("express");
-const {
-  getByID,
-  updateData,
-  actualizarSolicitud,
-} = require("../controllers/dbControllers.js");
+const { getByID, updateData } = require("../controllers/dbControllers.js");
 const auth = require("../middlewares/auth.js");
 const router = express.Router();
 
@@ -26,11 +22,7 @@ router.get("/info", auth, async (req, res) => {
 });
 
 router.get("/solicitudes", auth, async (req, res) => {
-  const solicitudes = await getByID(
-    "solicitud_de_retiro",
-    "Rut_cliente",
-    req.user
-  );
+  const solicitudes = await getSolicitudesCliente(req.user);
 
   if (!solicitudes.length)
     return res.status(400).json({
@@ -45,7 +37,7 @@ router.put("/actualizarSolicitud", auth, async (req, res) => {
   const { rutCliente, atributos } = req.body;
 
   try {
-    await actualizarSolicitud(
+    await updateData(
       "solicitud_de_retiro",
       "Rut_cliente",
       rutCliente,

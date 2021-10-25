@@ -6,9 +6,9 @@ const { addData, getByID } = require("../controllers/dbControllers");
 require("dotenv").config();
 
 router.post("/sign", async (req, res) => {
-  const { Nombres, Apellidos, Email, Rut, Contraseña } = req.body.data[0];
+  const { Nombres, Apellidos, Email, Rut, Contraseña, Id_direccion } = req.body;
 
-  if (!Nombres || !Apellidos || !Email || !Rut || !Contraseña)
+  if (!Nombres || !Apellidos || !Email || !Rut || !Contraseña || !Id_direccion)
     return res
       .status(400)
       .json({ status: 400, message: "Por favor, llena todos los campos" });
@@ -30,15 +30,16 @@ router.post("/sign", async (req, res) => {
 
   const ContraseñaHash = await bcrypt.hash(Contraseña, salt);
 
-  const newUser = [
-    {
-      Nombres,
-      Apellidos,
-      Email,
-      Rut,
-      Contraseña: ContraseñaHash,
-    },
-  ];
+  const newUser = {
+    Nombres,
+    Apellidos,
+    Email,
+    Rut,
+    Contraseña: ContraseñaHash,
+    Id_direccion,
+  };
+
+  console.log(newUser);
 
   await addData("usuario", newUser);
 
