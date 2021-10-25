@@ -39,6 +39,7 @@ router.get("/solicitudes", auth, async (req, res) => {
       Monto: resp[0].Monto,
       Aprobado: resp[0].Aprobado
     };
+    console.log(info)
     res.json(info);
   });
 });

@@ -18,7 +18,6 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const deleteItemHandler = (solicitudId: number) => {
-    console.log("a")
     setSolicitudes(prevGoals => {
       const updateSolicitudes = prevGoals.filter(solicitud => solicitud.Id_solicitud !== solicitudId);
       return updateSolicitudes;

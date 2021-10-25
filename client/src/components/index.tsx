@@ -11,6 +11,8 @@ import AuthContext, { AuthContextProvider } from "./AuthContext/AuthContext";
 import UserContext, { UserContextProvider } from "./UserContext/UserContext";
 import AdminDashboardSolicitud from "./AdminDashboardSolicitud/AdminDashboardSolicitud";
 import AdminDashboardTable from "./AdminDashboardTable/AdminDashboardTable";
+import SolicitudesDashboardItems from "./SolicitudesDashboardItems/SolicitudesDashboardItems";
+import SolicitudesDashboardTable from "./SolicitudesDashboardTable/SolicitudesDashboardTable";
 
 export {
   Header,
@@ -29,4 +31,6 @@ export {
   UserContext,
   AdminDashboardSolicitud,
   AdminDashboardTable,
+  SolicitudesDashboardItems,
+  SolicitudesDashboardTable
 };

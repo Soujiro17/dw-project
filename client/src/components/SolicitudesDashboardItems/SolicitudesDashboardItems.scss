@@ -1,0 +1,26 @@
+@import "../../consts/colors.scss";
+tr:hover {
+  background-color: $greyMasOscuro;
+}
+
+.aprobar {
+  &:hover {
+    background-color: $green;
+  }
+}
+
+.rechazar {
+  &:hover {
+    background-color: $red;
+  }
+}
+
+.btn {
+  color: $white;
+  background: $primary;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
