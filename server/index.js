@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-require("./database");
+const db = require("./database");
 
 const PORT = process.env.PORT || 5000;
 
@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/", require("./routes/index.js"));
+app.use("/admin", require("./routes/adminRouter.js"));
 app.use("/auth", require("./routes/userRouter.js"));
 app.use("/customer", require("./routes/customerRouter.js"));
 

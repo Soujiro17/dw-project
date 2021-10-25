@@ -3,10 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { addData, getByID } = require("../controllers/dbControllers");
-
 require("dotenv").config();
 
-router.post("/sign", (req, res) => {
+router.post("/sign", async (req, res) => {
   const { Nombres, Apellidos, Email, Rut, Contraseña } = req.body.data[0];
 
   if (!Nombres || !Apellidos || !Email || !Rut || !Contraseña)
@@ -19,51 +18,47 @@ router.post("/sign", (req, res) => {
       message: "La contraseña debe tener 6 caracteres como mínimo",
     });
 
-  getByID("Usuario", "Rut", Rut, async (err, resp) => {
-    if (err) return undefined;
+  const usuario = await getByID("usuario", "Rut", Rut);
 
-    if (resp.length)
-      return res.status(400).json({
-        status: 400,
-        message: "El usuario ya existe",
-      });
-
-    const salt = await bcrypt.genSalt();
-
-    const ContraseñaHash = await bcrypt.hash(Contraseña, salt);
-
-    const newUser = [
-      {
-        Nombres,
-        Apellidos,
-        Email,
-        Rut,
-        Contraseña: ContraseñaHash,
-      },
-    ];
-
-    addData("usuario", newUser, (err, resp) => {
-      if (err) return res.status(401).send(undefined);
-
-      const token = jwt.sign(
-        {
-          user: newUser.Rut,
-        },
-        process.env.JWT_SECRET
-      );
-
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-        })
-        .send(true);
+  if (usuario.length)
+    return res.status(400).json({
+      status: 400,
+      message: "El usuario ya existe",
     });
-  });
+
+  const salt = await bcrypt.genSalt();
+
+  const ContraseñaHash = await bcrypt.hash(Contraseña, salt);
+
+  const newUser = [
+    {
+      Nombres,
+      Apellidos,
+      Email,
+      Rut,
+      Contraseña: ContraseñaHash,
+    },
+  ];
+
+  await addData("usuario", newUser);
+
+  const token = jwt.sign(
+    {
+      user: newUser.Rut,
+    },
+    process.env.JWT_SECRET
+  );
+
+  res
+    .cookie("token", token, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    })
+    .send(true);
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { Rut, Contraseña } = req.body.data[0];
 
   if (!Rut || !Contraseña)
@@ -71,40 +66,37 @@ router.post("/login", (req, res) => {
       .status(400)
       .json({ status: 400, message: "Por favor llena todos los campos" });
 
-  getByID("Usuario", "Rut", Rut, async (err, resp) => {
-    if (err) return undefined;
+  const usuario = await getByID("usuario", "Rut", Rut);
 
-    if (!resp.length)
-      return res.status(400).json({
-        status: 400,
-        message: "El RUT ingresado no existe",
-      });
-
-    const ContraseñaCorrect = await bcrypt.compare(
-      Contraseña,
-      resp[0].Contraseña
-    );
-
-    if (!ContraseñaCorrect)
-      return res
-        .status(401)
-        .json({ status: 401, message: "Contraseña incorrecta" });
-
-    const token = jwt.sign(
-      {
-        user: resp[0].Rut,
-      },
-      process.env.JWT_SECRET
-    );
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
+  if (!usuario.length)
+    return res.status(400).json({
+      status: 400,
+      message: "El RUT ingresado no existe",
     });
 
-    res.send(true);
+  const ContraseñaCorrect = await bcrypt.compare(
+    Contraseña,
+    usuario[0].Contraseña
+  );
+
+  if (!ContraseñaCorrect)
+    return res
+      .status(401)
+      .json({ status: 401, message: "Contraseña incorrecta" });
+
+  const token = jwt.sign(
+    {
+      user: usuario[0].Rut,
+    },
+    process.env.JWT_SECRET
+  );
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
   });
+
+  res.send(true);
 });
 
 router.get("/logout", async (req, res) => {

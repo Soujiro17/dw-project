@@ -18,14 +18,21 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const deleteItemHandler = (solicitudId: number) => {
+<<<<<<< HEAD
     setSolicitudes(prevGoals => {
       const updateSolicitudes = prevGoals.filter(solicitud => solicitud.Id_solicitud !== solicitudId);
+=======
+    setSolicitudes((prevGoals) => {
+      const updateSolicitudes = prevGoals.filter(
+        (solicitud) => solicitud.Id_solicitud !== solicitudId
+      );
+>>>>>>> fdf4e4d795f888cbe897b7e203e188e3fb64ebb1
       return updateSolicitudes;
     });
   };
 
   const getSolicitudes = async () => {
-    await axiosInstance.get<Solicitud[]>("/api/solicitudes").then((res) => {
+    await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
       setSolicitudes(res.data);
     });
   };
@@ -37,7 +44,10 @@ const AdminDashboard = () => {
   return (
     <Layout>
       <div className="admin-dashboard">
-        <AdminDashboardTable solicitudes={solicitudes} eliminarSolicitud={deleteItemHandler}/>
+        <AdminDashboardTable
+          solicitudes={solicitudes}
+          eliminarSolicitud={deleteItemHandler}
+        />
       </div>
     </Layout>
   );

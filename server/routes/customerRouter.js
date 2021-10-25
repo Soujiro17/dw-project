@@ -1,38 +1,38 @@
 const express = require("express");
-const { getByID, updateData } = require("../controllers/dbControllers.js");
+const {
+  getByID,
+  updateData,
+  actualizarSolicitud,
+} = require("../controllers/dbControllers.js");
 const auth = require("../middlewares/auth.js");
 const router = express.Router();
 
 router.get("/info", auth, async (req, res) => {
-  getByID("Usuario", "Rut", req.user, async (err, resp) => {
-    if (err) return undefined;
+  const usuario = await getByID("usuario", "Rut", req.user);
 
-    if (!resp.length)
-      return res.status(400).json({
-        status: 400,
-        message: "El usuario no existe",
-      });
+  if (!usuario.length)
+    return res.status(400).json({
+      status: 400,
+      message: "El usuario no existe",
+    });
 
-    const info = {
-      Rut: resp[0].Rut,
-      Nombres: resp[0].Nombres,
-      Apellidos: resp[0].Apellidos,
-      Saldo: resp[0].Saldo,
-    };
-    res.json(info);
-  });
+  const info = {
+    Rut: usuario[0].Rut,
+    Nombres: usuario[0].Nombres,
+    Apellidos: usuario[0].Apellidos,
+    Saldo: usuario[0].Saldo,
+  };
+  res.json(info);
 });
 
 router.get("/solicitudes", auth, async (req, res) => {
-  getByID("Solicitud_de_retiro", "Rut_cliente", req.user, async (err, resp) => {
-    if (err) return undefined;
-  
-    if (!resp.length)
-      return res.status(400).json({
-        status: 400,
-        message: "El usuario no existe",
-      });
+  const solicitudes = await getByID(
+    "solicitud_de_retiro",
+    "Rut_cliente",
+    req.user
+  );
 
+<<<<<<< HEAD
     const info = {
       Rut: resp[0].Rut_cliente,
       Fecha: resp[0].Fecha_solicitud,
@@ -51,17 +51,37 @@ router.put("/actualizarSolicitud", async (req, res) => {
     if (err) return undefined;
 
     if (resp.affectedRows === 0)
+=======
+  if (!solicitudes.length)
+>>>>>>> fdf4e4d795f888cbe897b7e203e188e3fb64ebb1
     return res.status(400).json({
       status: 400,
       message: "El usuario no existe",
     });
-      
+
+  res.json(solicitudes);
+});
+
+router.put("/actualizarSolicitud", auth, async (req, res) => {
+  const { rutCliente, atributos } = req.body;
+
+  try {
+    await actualizarSolicitud(
+      "solicitud_de_retiro",
+      "Rut_cliente",
+      rutCliente,
+      atributos
+    );
     return res.status(200).json({
       status: 200,
       message: `Solicitud actualizada`,
     });
-
-  });
+  } catch {
+    return res.status(400).json({
+      status: 400,
+      message: "El usuario no existe",
+    });
+  }
 });
 
 module.exports = router;

@@ -1,18 +1,29 @@
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
+const { Sequelize } = require("sequelize");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const conn = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+const db = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql" || "mariadb",
+    logging: console.log,
+  }
+);
 
-conn.connect((err) => {
-  if (err) return console.log(err);
+async function inicializar() {
+  try {
+    await db.authenticate();
+    await db.sync();
+    console.log("Database conectada");
+  } catch {
+    console.log("Error al conectar con la base de datos");
+  }
+}
 
-  console.log("Database connected");
-});
+inicializar();
 
-module.exports = conn;
+module.exports = db;
