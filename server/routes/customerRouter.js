@@ -1,5 +1,10 @@
 const express = require("express");
-const { getByID, updateData, getSolicitudesCliente } = require("../controllers/dbControllers.js");
+const {
+  getByID,
+  updateData,
+  getSolicitudesCliente,
+  addData,
+} = require("../controllers/dbControllers.js");
 const auth = require("../middlewares/auth.js");
 const router = express.Router();
 
@@ -33,27 +38,43 @@ router.get("/solicitudes", auth, async (req, res) => {
   res.json(solicitudes);
 });
 
-
 router.put("/actualizarSolicitud", auth, async (req, res) => {
   const { id, atributos } = req.body;
 
   try {
-    await updateData(
-      "solicitud_de_retiro",
-      "Id_solicitud",
-      id,
-      atributos
-    );
+    await updateData("solicitud_de_retiro", "Id_solicitud", id, atributos);
     return res.status(200).json({
       status: 200,
       message: `Solicitud actualizada`,
     });
-  } catch (error){
+  } catch (error) {
     return res.status(400).json({
       status: 400,
       message: "El usuario no existe",
     });
   }
+});
+
+router.post("/crearSolicitud", auth, async (req, res) => {
+  const usuario = await getByID("usuario", "Rut", req.user);
+
+  if (req.body.Monto > usuario[0].Saldo * 0.1 && usuario[0].Saldo > 1000000) {
+    return res.status(400).json({
+      status: 400,
+      message: "El monto es mayor al 10% del sueldo",
+    });
+  }
+
+  await updateData("usuario", "Rut", req.user, {
+    Saldo: usuario[0].Saldo - req.body.Monto,
+  });
+
+  await addData("solicitud_de_retiro", {
+    Rut_cliente: req.user,
+    Monto: req.body.Monto,
+  });
+
+  res.json({ status: 200, message: "Solicitud creada" });
 });
 
 module.exports = router;

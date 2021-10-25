@@ -39,8 +39,6 @@ router.post("/sign", async (req, res) => {
     Id_direccion,
   };
 
-  console.log(newUser);
-
   await addData("usuario", newUser);
 
   const token = jwt.sign(
@@ -60,7 +58,7 @@ router.post("/sign", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { Rut, Contraseña } = req.body.data[0];
+  const { Rut, Contraseña } = req.body;
 
   if (!Rut || !Contraseña)
     return res
