@@ -61,6 +61,13 @@ const getSolicitudes = () => {
   );
 };
 
+const getSolicitudesCliente = (rut) => {
+  return db.query(
+    `SELECT usuario.Rut, solicitud_de_retiro.Fecha_solicitud, solicitud_de_retiro.Monto, solicitud_de_retiro.Id_solicitud, solicitud_de_retiro.Aprobado  FROM usuario INNER JOIN solicitud_de_retiro WHERE usuario.Rut=solicitud_de_retiro.Rut_cliente AND solicitud_de_retiro.Rut_cliente=${rut}`,
+    { type: db.QueryTypes.SELECT }
+  );
+};
+
 const actualizarSolicitud = (tableName, attribute, id, data) => {
   return db.query(
     `UPDATE ${tableName} SET Aprobado=${data.Aprobado} WHERE ${attribute}=${id}`,
@@ -82,4 +89,5 @@ module.exports = {
   dropTable,
   getSolicitudes,
   actualizarSolicitud,
+  getSolicitudesCliente
 };

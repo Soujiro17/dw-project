@@ -1,6 +1,6 @@
 @import "../../consts/colors.scss";
 
-header {
+header{
   height: 11vh;
   width: 100vw;
   border-bottom: 10px solid;
@@ -8,31 +8,62 @@ header {
   border-image-source: $primaryGradient;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-
-  .sesion {
-    margin-right: 50px;
+  justify-content: space-around;
+  .left-container{
+    height: 100%;
+    width: 50%;
     display: flex;
-    p {
-      margin: 0px;
-    }
-    .info {
-      strong {
-        text-transform: uppercase;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 2%;
+    ul{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      list-style-type: none;
+      justify-content: space-around;
+      li{
+        a{
+          text-decoration: none;
+          &:hover{
+            font-size: 1.2em;
+            font-weight: 600;
+          }
+        }
       }
     }
-
-    .iconos {
-      margin-left: 50px;
+  }
+  
+  .rigth-container{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    .sesion {
+      padding-top: 2%;
+      margin-right: 50px;
       display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      color: $blackMenosTransparente;
-      cursor: pointer;
-
-      svg {
-        transform: rotate(90deg);
+      p {
+        margin: 0px;
+      }
+      .info {
+        strong {
+          text-transform: uppercase;
+        }
+      }
+  
+      .iconos {
+        margin-left: 50px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        color: $blackMenosTransparente;
+        cursor: pointer;
+  
+        svg {
+          transform: rotate(90deg);
+        }
       }
     }
   }

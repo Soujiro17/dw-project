@@ -4,7 +4,6 @@ import { Solicitud } from "../../pages/SolicitudesDashboard/SolicitudesDashboard
 import "./SolicitudesDashboardTable.scss";
 
 const SolicitudesDashboardTable: React.FC<{ solicitudes: Solicitud[] }> = (props) => {
-  console.log(props.solicitudes)
   return (
     <table className="table">
       <thead>
@@ -13,7 +12,7 @@ const SolicitudesDashboardTable: React.FC<{ solicitudes: Solicitud[] }> = (props
           <th>Rut</th>
           <th>Fecha</th>
           <th>Monto</th>
-          <th>Aprobado</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>

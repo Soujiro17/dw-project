@@ -6,9 +6,9 @@ import "./SolicitudesDashboard.scss";
 export interface Solicitud {
   Id_solicitud: number;
   Rut: number;
-  Fecha: string;
+  Fecha_solicitud: string;
   Monto: number;
-  Aprobado: boolean;
+  Aprobado: number;
 }
 
 const SolicitudesDashboard = () => {
