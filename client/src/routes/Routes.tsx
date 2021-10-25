@@ -20,6 +20,16 @@ const Routes = () => {
           isAuthenticated={loggedIn}
           component={Dashboard}
         />
+        <PrivateRoute
+          path="/solicitudes"
+          isAuthenticated={loggedIn}
+          component={Dashboard}
+        />
+        {/* <PrivateRoute
+          path="/solicitudes/realizar"
+          isAuthenticated={loggedIn}
+          component={Dashboard}
+        /> */}
         <Route exact path="/admin">
           <AdminDashboard />
         </Route>
