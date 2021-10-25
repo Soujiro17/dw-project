@@ -58,7 +58,7 @@ router.put("/actualizarSolicitud", auth, async (req, res) => {
 router.post("/crearSolicitud", auth, async (req, res) => {
   const usuario = await getByID("usuario", "Rut", req.user);
 
-  if (req.body.Monto > usuario[0].Saldo * 0.1 && usuario[0].Saldo > 1000000) {
+  if (req.body.Monto > usuario[0].Saldo * 0.1 && usuario[0].Saldo > 0) {
     return res.status(400).json({
       status: 400,
       message: "El monto es mayor al 10% del sueldo",

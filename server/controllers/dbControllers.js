@@ -42,7 +42,7 @@ const updateData = async (tableName, attribute, id, data) => {
 
   for (const property in data) {
     sql += `${property}=${data[property]}`;
-    console.log(sql)
+    console.log(sql);
   }
 
   //sql = sql.slice(0, -1);
