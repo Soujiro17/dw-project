@@ -27,7 +27,6 @@ router.post("/sign", (req, res) => {
         status: 400,
         message: "El usuario ya existe",
       });
-
     const salt = await bcrypt.genSalt();
 
     const ContraseñaHash = await bcrypt.hash(Contraseña, salt);
