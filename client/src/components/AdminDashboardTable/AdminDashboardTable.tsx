@@ -3,11 +3,8 @@ import { AdminDashboardSolicitud } from "..";
 import { Solicitud } from "../../pages/AdminDashboard/AdminDashboard";
 import "./AdminDashboardTable.scss";
 
-interface Props {
-  solicitudes: Solicitud[];
-}
 
-const AdminDashboardTable = (props: Props) => {
+const AdminDashboardTable: React.FC<{ solicitudes: Solicitud[]; eliminarSolicitud: (solicitudId: number) => void}> = (props) => {
   return (
     <table className="table">
       <thead>
@@ -27,14 +24,8 @@ const AdminDashboardTable = (props: Props) => {
         {props.solicitudes?.map((solicitud) => {
           return (
             <AdminDashboardSolicitud
-              Id_solicitud={solicitud.Id_solicitud}
-              Fecha_solicitud={solicitud.Fecha_solicitud}
-              Nombres={solicitud.Nombres}
-              Apellidos={solicitud.Apellidos}
-              Rut={solicitud.Rut}
-              Telefono={solicitud.Telefono}
-              Email={solicitud.Email}
-              Monto={solicitud.Monto}
+              solicitud={solicitud}
+              eliminarSolicitud={props.eliminarSolicitud.bind(null, solicitud.Id_solicitud)}
             />
           );
         })}

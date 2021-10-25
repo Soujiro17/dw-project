@@ -8,14 +8,22 @@ export interface Solicitud {
   Fecha_solicitud: string;
   Nombres: string;
   Apellidos: string;
-  Rut: Number;
-  Telefono: Number;
+  Rut: number;
+  Telefono: number;
   Email: string;
-  Monto: Number;
+  Monto: number;
 }
 
 const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
+
+  const deleteItemHandler = (solicitudId: number) => {
+    console.log("a")
+    setSolicitudes(prevGoals => {
+      const updateSolicitudes = prevGoals.filter(solicitud => solicitud.Id_solicitud !== solicitudId);
+      return updateSolicitudes;
+    });
+  };
 
   const getSolicitudes = async () => {
     await axiosInstance.get<Solicitud[]>("/api/solicitudes").then((res) => {
@@ -30,7 +38,7 @@ const AdminDashboard = () => {
   return (
     <Layout>
       <div className="admin-dashboard">
-        <AdminDashboardTable solicitudes={solicitudes} />
+        <AdminDashboardTable solicitudes={solicitudes} eliminarSolicitud={deleteItemHandler}/>
       </div>
     </Layout>
   );

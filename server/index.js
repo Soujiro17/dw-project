@@ -27,7 +27,7 @@ app.use(express.json());
 //   res.json(resultados);
 // });
 
-app.use("/sql", require("./routes/index.js"));
+app.use("/", require("./routes/index.js"));
 app.use("/auth", require("./routes/userRouter.js"));
 app.use("/customer", require("./routes/customerRouter.js"));
 
