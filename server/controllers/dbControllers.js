@@ -17,15 +17,36 @@ const deleteByID = (tableName, attribute, id) => {
 };
 
 const addData = (tableName, data) => {
-  return db.query(`INSERT INTO ${tableName} SET ?`, {
-    replacements: data,
+  let values = "";
+  let columns = "";
+
+  for (const property in data) {
+    columns += `${property},`;
+    if (typeof data[property] === "string") {
+      values += `'${data[property]}',`;
+      continue;
+    }
+    values += `${data[property]},`;
+  }
+
+  columns = columns.slice(0, -1);
+  values = values.slice(0, -1);
+
+  return db.query(`INSERT INTO ${tableName} (${columns}) VALUES (${values})`, {
     type: db.QueryTypes.INSERT,
   });
 };
 
-const updateData = (tableName, attribute, id, data) => {
-  return db.query(`UPDATE ${tableName} SET :data WHERE ${attribute}=${id}`, {
-    replacements: data,
+const updateData = async (tableName, attribute, id, data) => {
+  let sql = "";
+
+  for (const property in data) {
+    sql += `${property}=${data[property]}`;
+  }
+
+  sql = sql.slice(0, -1);
+
+  return db.query(`UPDATE ${tableName} SET ${sql} WHERE ${attribute}=${id}`, {
     type: db.QueryTypes.UPDATE,
   });
 };
@@ -62,6 +83,7 @@ const getSolicitudes = () => {
 };
 
 const getSolicitudesCliente = (rut) => {
+<<<<<<< HEAD
   return db.query(
     `SELECT usuario.Rut, solicitud_de_retiro.Fecha_solicitud, solicitud_de_retiro.Monto, solicitud_de_retiro.Id_solicitud, solicitud_de_retiro.Aprobado  FROM usuario INNER JOIN solicitud_de_retiro WHERE usuario.Rut=solicitud_de_retiro.Rut_cliente AND solicitud_de_retiro.Rut_cliente=${rut}`,
     { type: db.QueryTypes.SELECT }
@@ -69,11 +91,11 @@ const getSolicitudesCliente = (rut) => {
 };
 
 const actualizarSolicitud = (tableName, attribute, id, data) => {
+=======
+>>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
   return db.query(
-    `UPDATE ${tableName} SET Aprobado=${data.Aprobado} WHERE ${attribute}=${id}`,
-    {
-      type: db.QueryTypes.UPDATE,
-    }
+    `SELECT usuario.Rut, usuario.Nombres, usuario.Apellidos, usuario.Email, usuario.Telefono, usuario.Saldo, solicitud_de_retiro.Fecha_solicitud, solicitud_de_retiro.Monto, solicitud_de_retiro.Id_solicitud, solicitud_de_retiro.Aprobado  FROM usuario INNER JOIN solicitud_de_retiro WHERE usuario.Rut=solicitud_de_retiro.Rut_cliente AND solicitud_de_retiro.Rut_cliente=${rut}`,
+    { type: db.QueryTypes.SELECT }
   );
 };
 
@@ -88,6 +110,10 @@ module.exports = {
   alterTableMODIFY,
   dropTable,
   getSolicitudes,
+<<<<<<< HEAD
   actualizarSolicitud,
   getSolicitudesCliente
+=======
+  getSolicitudesCliente,
+>>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
 };

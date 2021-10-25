@@ -1,10 +1,14 @@
 const express = require("express");
+<<<<<<< HEAD
 const {
   getByID,
   updateData,
   actualizarSolicitud,
   getSolicitudesCliente
 } = require("../controllers/dbControllers.js");
+=======
+const { getByID, updateData } = require("../controllers/dbControllers.js");
+>>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
 const auth = require("../middlewares/auth.js");
 const router = express.Router();
 
@@ -27,9 +31,14 @@ router.get("/info", auth, async (req, res) => {
 });
 
 router.get("/solicitudes", auth, async (req, res) => {
+<<<<<<< HEAD
   const solicitudes = await getSolicitudesCliente(
     req.user
   );
+=======
+  const solicitudes = await getSolicitudesCliente(req.user);
+
+>>>>>>> 9ce499ca803ddf60195864de9a8896b7cc047033
   if (!solicitudes.length)
     return res.status(400).json({
       status: 400,
@@ -44,7 +53,7 @@ router.put("/actualizarSolicitud", auth, async (req, res) => {
   const { rutCliente, atributos } = req.body;
 
   try {
-    await actualizarSolicitud(
+    await updateData(
       "solicitud_de_retiro",
       "Rut_cliente",
       rutCliente,
