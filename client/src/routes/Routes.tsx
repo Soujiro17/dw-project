@@ -26,7 +26,7 @@ const Routes = () => {
           isAuthenticated={loggedIn}
           component={SolicitudesDashboard}
         />
- 
+
         {/* <PrivateRoute
           path="/solicitudes/realizar"
           isAuthenticated={loggedIn}

@@ -18,9 +18,7 @@ const LoginForm = () => {
   const handleLogin = async (ev: React.MouseEvent) => {
     ev.preventDefault();
     await axiosInstance
-      .post("auth/login", {
-        data: [{ Rut: clean(Rut), Contraseña }],
-      })
+      .post("auth/login", { Rut: clean(Rut), Contraseña })
       .then((res) => {
         toast.success("Sesión iniciada con éxito");
         getLoggedIn();

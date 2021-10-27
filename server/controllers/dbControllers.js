@@ -45,8 +45,6 @@ const updateData = async (tableName, attribute, id, data) => {
     console.log(sql);
   }
 
-  //sql = sql.slice(0, -1);
-
   return db.query(`UPDATE ${tableName} SET ${sql} WHERE ${attribute}=${id}`, {
     type: db.QueryTypes.UPDATE,
   });
