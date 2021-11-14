@@ -40,7 +40,7 @@ const SolicitudesDashboard = () => {
 
   return (
     <Layout>
-      <div className="admin-dashboard">
+      <div className="solicitudes-dashboard">
         <DashboardAsideNav />
         <div className="solicitudes">
           <SolicitudesDashboardItems

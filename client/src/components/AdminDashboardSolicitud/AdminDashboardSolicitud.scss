@@ -1,26 +1,21 @@
 @import "../../consts/colors.scss";
-tr:hover {
-  background-color: $greyMasOscuro;
-}
+.admin-dashboard {
+  min-height: 70vh;
+  width: 100vw;
+  height: 70vh;
+  border-top: 27px solid $grey;
 
-.aprobar {
-  &:hover {
-    background-color: $green;
+  .solicitudes {
+    height: 92%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+    overflow-y: auto;
   }
-}
-
-.rechazar {
-  &:hover {
-    background-color: $red;
+  .aside-right {
+    height: 100%;
+    width: 30vw;
   }
-}
-
-.btn {
-  color: $white;
-  background: $primary;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
 }

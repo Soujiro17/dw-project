@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { AdminDashboardTable, Layout } from "../../components";
+import { AdminDashboardSolicitud, Layout } from "../../components";
 import axiosInstance from "../../services/axiosInstance";
 import "./AdminDashboard.scss";
+import { toast } from "react-toastify";
 
 export interface Solicitud {
   Id_solicitud: number;
@@ -14,22 +15,46 @@ export interface Solicitud {
   Monto: number;
 }
 
+const defaultItem = {
+  Id_solicitud: 0,
+  Fecha_solicitud: "",
+  Nombres: "",
+  Apellidos: "",
+  Rut: 0,
+  Telefono: 0,
+  Email: "",
+  Monto: 0,
+};
+
 const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
-
-  const deleteItemHandler = (solicitudId: number) => {
-    setSolicitudes((prevGoals) => {
-      const updateSolicitudes = prevGoals.filter(
-        (solicitud) => solicitud.Id_solicitud !== solicitudId
-      );
-      return updateSolicitudes;
-    });
-  };
 
   const getSolicitudes = async () => {
     await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
       setSolicitudes(res.data);
     });
+  };
+
+  const handleRequestStatus = async (
+    solicitud: Solicitud,
+    boolean: Boolean
+  ) => {
+    if (boolean) {
+      if (!window.confirm("¿Estás seguro de aprobar la solicitud?")) return;
+    } else {
+      if (!window.confirm("¿Estás seguro de rechazar la solicitud?")) return;
+    }
+
+    await axiosInstance
+      .put("customer/actualizarSolicitud", {
+        id: solicitud.Id_solicitud,
+        atributos: { Aprobado: boolean },
+      })
+      .then((res) => {
+        toast.success("Solicitud Actualizada");
+        getSolicitudes();
+      })
+      .catch((err) => toast.error(`${err}`));
   };
 
   useEffect(() => {
@@ -39,10 +64,21 @@ const AdminDashboard = () => {
   return (
     <Layout>
       <div className="admin-dashboard">
-        <AdminDashboardTable
-          solicitudes={solicitudes}
-          eliminarSolicitud={deleteItemHandler}
-        />
+        <div className="solicitudes">
+          <AdminDashboardSolicitud
+            solicitud={defaultItem}
+            handleRequestStatus={handleRequestStatus}
+            defaultItem={true}
+          />
+
+          {solicitudes.map((solicitud) => (
+            <AdminDashboardSolicitud
+              solicitud={solicitud}
+              handleRequestStatus={handleRequestStatus}
+              defaultItem={false}
+            />
+          ))}
+        </div>
       </div>
     </Layout>
   );

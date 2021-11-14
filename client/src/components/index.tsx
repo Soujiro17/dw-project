@@ -10,7 +10,6 @@ import DashboardContent from "./DashboardContent/DashboardContent";
 import AuthContext, { AuthContextProvider } from "./AuthContext/AuthContext";
 import UserContext, { UserContextProvider } from "./UserContext/UserContext";
 import AdminDashboardSolicitud from "./AdminDashboardSolicitud/AdminDashboardSolicitud";
-import AdminDashboardTable from "./AdminDashboardTable/AdminDashboardTable";
 import SolicitudesDashboardItems from "./SolicitudesDashboardItems/SolicitudesDashboardItems";
 import DashboardAsideNav from "./DashboardAsideNav/DashboardAsideNav";
 
@@ -30,7 +29,6 @@ export {
   UserContextProvider,
   UserContext,
   AdminDashboardSolicitud,
-  AdminDashboardTable,
   SolicitudesDashboardItems,
   DashboardAsideNav,
 };

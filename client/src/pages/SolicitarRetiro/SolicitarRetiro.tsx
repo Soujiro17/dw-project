@@ -82,11 +82,7 @@ const SolicitarRetiro = () => {
           >
             Enviar
           </button>
-          <button
-            className="btn"
-            style={{ background: "#e3007d" }}
-            onClick={cancelarSolicitud}
-          >
+          <button className="btn rosado" onClick={cancelarSolicitud}>
             Cancelar
           </button>
         </div>

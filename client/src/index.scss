@@ -58,6 +58,20 @@ code {
   transition: 0.3s;
 }
 
+.btn {
+  color: $white;
+  background: $primary;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
 .red {
   color: $red;
+}
+
+.rosado {
+  background: rgb(227, 0, 125);
 }
