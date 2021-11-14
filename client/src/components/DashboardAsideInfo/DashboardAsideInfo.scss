@@ -1,0 +1,43 @@
+@import "../../consts/colors.scss";
+
+.aside-right {
+  height: 100%;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+
+  .info-title {
+    font-weight: bolder;
+    font-size: 20px;
+    color: $primary;
+  }
+
+  .info-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .info-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: $white;
+      background: $rosado;
+      padding: 5px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      p,
+      h4 {
+        margin: 5px;
+      }
+
+      &:nth-child(2n) {
+        background: $primary;
+      }
+    }
+  }
+}

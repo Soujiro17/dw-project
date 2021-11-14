@@ -3,6 +3,7 @@ import {
   SolicitudesDashboardItems,
   Layout,
   DashboardAsideNav,
+  DashboardAsideInfo,
 } from "../../components";
 import axiosInstance from "../../services/axiosInstance";
 import "./SolicitudesDashboard.scss";
@@ -56,7 +57,7 @@ const SolicitudesDashboard = () => {
             );
           })}
         </div>
-        <div className="aside-right">Info</div>
+        <DashboardAsideInfo />
       </div>
     </Layout>
   );

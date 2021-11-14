@@ -2,21 +2,28 @@ import React, { useContext } from "react";
 import "./Header.scss";
 import { Usuario } from "../UserContext/UserContext";
 import { icons } from "../../consts/icons";
-import { Link } from "react-router-dom";
 import { AuthContext } from "..";
+import { useHistory } from "react-router";
 
 interface Props {
   usuario: Usuario;
 }
 
+const url =
+  "https://www.uv.cl/universidad/descargas/archivos/uv_logo_alta_rgba_azul.png";
+
 const Header = (props: Props) => {
   const { cerrarSesion } = useContext(AuthContext);
 
+  const history = useHistory();
+
   return (
     <header>
-      {props.usuario.Nombres && (
-        <>
-          <div className="left-container"></div>
+      <>
+        <div className="left-container">
+          <img src={url} alt="" onClick={() => history.push("/dashboard")} />
+        </div>
+        {props.usuario.Nombres && (
           <div className="rigth-container">
             <div className="sesion">
               <div className="info">
@@ -37,8 +44,8 @@ const Header = (props: Props) => {
               </div>
             </div>
           </div>
-        </>
-      )}
+        )}
+      </>
     </header>
   );
 };

@@ -12,6 +12,7 @@ import UserContext, { UserContextProvider } from "./UserContext/UserContext";
 import AdminDashboardSolicitud from "./AdminDashboardSolicitud/AdminDashboardSolicitud";
 import SolicitudesDashboardItems from "./SolicitudesDashboardItems/SolicitudesDashboardItems";
 import DashboardAsideNav from "./DashboardAsideNav/DashboardAsideNav";
+import DashboardAsideInfo from "./DashboardAsideInfo/DashboardAsideInfo";
 
 export {
   Header,
@@ -31,4 +32,5 @@ export {
   AdminDashboardSolicitud,
   SolicitudesDashboardItems,
   DashboardAsideNav,
+  DashboardAsideInfo,
 };

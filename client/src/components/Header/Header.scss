@@ -1,6 +1,6 @@
 @import "../../consts/colors.scss";
 
-header{
+header {
   height: 11vh;
   width: 100vw;
   border-bottom: 10px solid;
@@ -9,33 +9,21 @@ header{
   display: flex;
   align-items: center;
   justify-content: space-around;
-  .left-container{
+  .left-container {
     height: 100%;
     width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     padding-top: 2%;
-    ul{
-      height: 100%;
-      width: 100%;
-      display: flex;
-      list-style-type: none;
-      justify-content: space-around;
-      li{
-        a{
-          text-decoration: none;
-          &:hover{
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #a13099;
-          }
-        }
-      }
+    margin-left: 11.5%;
+
+    img {
+      height: 7vh;
+      width: 8vw;
+      margin-right: 2%;
+      cursor: pointer;
     }
   }
-  
-  .rigth-container{
+
+  .rigth-container {
     height: 100%;
     width: 50%;
     display: flex;
@@ -52,7 +40,7 @@ header{
           text-transform: uppercase;
         }
       }
-  
+
       .iconos {
         margin-left: 50px;
         display: flex;
@@ -61,7 +49,7 @@ header{
         justify-content: center;
         color: $blackMenosTransparente;
         cursor: pointer;
-  
+
         svg {
           transform: rotate(90deg);
         }
