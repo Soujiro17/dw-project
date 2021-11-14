@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Header.scss";
 import { Usuario } from "../UserContext/UserContext";
 import { icons } from "../../consts/icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { AuthContext } from "..";
 
 interface Props {
@@ -16,14 +16,8 @@ const Header = (props: Props) => {
     <header>
       {props.usuario.Nombres && (
         <>
-          <div className="left-container">
-            <ul>
-              <li><Link to='/dashboard'>Home</Link></li>
-              <li><Link to='/solicitudes'>Solicitudes</Link></li>
-            </ul>
-          </div>
+          <div className="left-container"></div>
           <div className="rigth-container">
-
             <div className="sesion">
               <div className="info">
                 <p>Hola</p>

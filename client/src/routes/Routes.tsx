@@ -6,6 +6,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import { AuthContext } from "../components";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
 import SolicitudesDashboard from "../pages/SolicitudesDashboard/SolicitudesDashboard";
+import SolicitarRetiro from "../pages/SolicitarRetiro/SolicitarRetiro";
 
 const Routes = () => {
   const { loggedIn } = useContext(AuthContext);
@@ -26,12 +27,11 @@ const Routes = () => {
           isAuthenticated={loggedIn}
           component={SolicitudesDashboard}
         />
-
-        {/* <PrivateRoute
-          path="/solicitudes/realizar"
+        <PrivateRoute
+          path="/solicitar-retiro"
           isAuthenticated={loggedIn}
-          component={Dashboard}
-        /> */}
+          component={SolicitarRetiro}
+        />
         <Route exact path="/admin">
           <AdminDashboard />
         </Route>

@@ -60,8 +60,6 @@ router.post("/sign", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { Rut, Contraseña } = req.body;
 
-  console.log(req.body);
-
   if (!Rut || !Contraseña)
     return res
       .status(400)
@@ -79,8 +77,6 @@ router.post("/login", async (req, res) => {
     Contraseña,
     usuario[0].Contraseña
   );
-
-  console.log(ContraseñaCorrect);
 
   if (!ContraseñaCorrect)
     return res

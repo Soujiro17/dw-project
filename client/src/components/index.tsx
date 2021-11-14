@@ -13,6 +13,7 @@ import AdminDashboardSolicitud from "./AdminDashboardSolicitud/AdminDashboardSol
 import AdminDashboardTable from "./AdminDashboardTable/AdminDashboardTable";
 import SolicitudesDashboardItems from "./SolicitudesDashboardItems/SolicitudesDashboardItems";
 import SolicitudesDashboardTable from "./SolicitudesDashboardTable/SolicitudesDashboardTable";
+import DashboardAsideNav from "./DashboardAsideNav/DashboardAsideNav";
 
 export {
   Header,
@@ -32,5 +33,6 @@ export {
   AdminDashboardSolicitud,
   AdminDashboardTable,
   SolicitudesDashboardItems,
-  SolicitudesDashboardTable
+  SolicitudesDashboardTable,
+  DashboardAsideNav,
 };

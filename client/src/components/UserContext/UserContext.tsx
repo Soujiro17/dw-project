@@ -10,7 +10,7 @@ export interface Usuario {
   Nombres: string;
   Apellidos: string;
   Rut: Number;
-  Saldo: Number;
+  Saldo: number;
 }
 
 interface Props {

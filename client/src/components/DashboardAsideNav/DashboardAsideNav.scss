@@ -1,0 +1,33 @@
+@import "../../consts/colors.scss";
+
+.aside-nav {
+  height: 100%;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  .nav-user {
+    padding: 30px;
+    .nav-list {
+      list-style: none;
+      .nav-item {
+        height: 50px;
+
+        a {
+          width: 100%;
+          display: flex;
+          font-weight: bolder;
+          font-size: 20px;
+          align-items: center;
+          color: $primary;
+          text-decoration: none;
+
+          .icon {
+            margin-right: 10px;
+            display: flex;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
