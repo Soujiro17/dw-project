@@ -1,26 +1,26 @@
 @import "../../consts/colors.scss";
-tr:hover {
-  background-color: $greyMasOscuro;
-}
 
-.aprobar {
-  &:hover {
-    background-color: $green;
-  }
-}
-
-.rechazar {
-  &:hover {
-    background-color: $red;
-  }
-}
-
-.btn {
-  color: $white;
-  background: $primary;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.solicitud-item {
+  width: 90%;
+  height: 70px;
   margin: 10px;
+  display: flex;
+  box-shadow: 1px 3px 5px 5px $blackTransparent;
+  align-items: center;
+  justify-content: center;
+
+  .solicitud-status {
+    font-weight: bolder;
+  }
+
+  .default {
+    font-weight: bolder;
+  }
+
+  div {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
