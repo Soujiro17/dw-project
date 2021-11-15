@@ -10,18 +10,20 @@ const router = express.Router();
 
 router.get("/info", auth, async (req, res) => {
   const usuario = await getByID("usuario", "Rut", req.user);
+  const ejecutivo = await getByID("ejecutivo", "Rut", req.user);
 
-  if (!usuario.length)
+  if (!usuario.length && !ejecutivo.length)
     return res.status(400).json({
       status: 400,
       message: "El usuario no existe",
     });
 
   const info = {
-    Rut: usuario[0].Rut,
-    Nombres: usuario[0].Nombres,
-    Apellidos: usuario[0].Apellidos,
-    Saldo: usuario[0].Saldo,
+    Rut: usuario[0]?.Rut || ejecutivo[0]?.Rut,
+    Nombres: usuario[0]?.Nombres || ejecutivo[0]?.Nombres,
+    Apellidos: usuario[0]?.Apellidos || ejecutivo[0]?.Apellidos,
+    Saldo: usuario[0]?.Saldo || ejecutivo[0]?.Saldo,
+    typeAccount: usuario[0] ? "cliente" : "admin",
   };
   res.json(info);
 });

@@ -9,7 +9,7 @@ import SolicitudesDashboard from "../pages/SolicitudesDashboard/SolicitudesDashb
 import SolicitarRetiro from "../pages/SolicitarRetiro/SolicitarRetiro";
 
 const Routes = () => {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, loggedInAdmin } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
@@ -32,9 +32,11 @@ const Routes = () => {
           isAuthenticated={loggedIn}
           component={SolicitarRetiro}
         />
-        <Route exact path="/admin">
-          <AdminDashboard />
-        </Route>
+        <PrivateRoute
+          path="/admin"
+          isAuthenticated={loggedInAdmin}
+          component={AdminDashboard}
+        />
         <Redirect to="/login" />
       </Switch>
     </BrowserRouter>

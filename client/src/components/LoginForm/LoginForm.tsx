@@ -6,29 +6,44 @@ import { validate, format, clean } from "rut.js";
 import axiosInstance from "../../services/axiosInstance";
 import { toast } from "react-toastify";
 
-const LoginForm = () => {
+const LoginForm: React.FC<{ typeAccount: string }> = ({ typeAccount }) => {
   const [showContraseña, setShowContraseña] = useState<Boolean>(false);
   const [Rut, setRut] = useState<string>("");
   const [RutIsCorrect, setRutIsCorrect] = useState<Boolean>(false);
   const [Contraseña, setContraseña] = useState<string>("");
 
-  const { getLoggedIn } = useContext(AuthContext);
+  const { getLoggedIn, getLoggedInAdmin } = useContext(AuthContext);
   const { getCustomer } = useContext(UserContext);
 
   const handleLogin = async (ev: React.MouseEvent) => {
     ev.preventDefault();
-    await axiosInstance
-      .post("auth/login", { Rut: clean(Rut), Contraseña })
-      .then((res) => {
-        toast.success("Sesión iniciada con éxito");
-        getLoggedIn();
-        getCustomer();
-      })
-      .catch((err) =>
-        toast.error(
-          "Error al iniciar sesión. Por favor, verifica bien tus datos"
-        )
-      );
+    if (typeAccount === "admin") {
+      await axiosInstance
+        .post("admin/login", { Rut: clean(Rut), Contraseña })
+        .then((res) => {
+          toast.success("Sesión iniciada con éxito");
+          getLoggedInAdmin();
+          getCustomer();
+        })
+        .catch((err) =>
+          toast.error(
+            "Error al iniciar sesión. Por favor, verifica bien tus datos"
+          )
+        );
+    } else {
+      await axiosInstance
+        .post("auth/login", { Rut: clean(Rut), Contraseña })
+        .then((res) => {
+          toast.success("Sesión iniciada con éxito");
+          getLoggedIn();
+          getCustomer();
+        })
+        .catch((err) =>
+          toast.error(
+            "Error al iniciar sesión. Por favor, verifica bien tus datos"
+          )
+        );
+    }
   };
 
   useEffect(() => {

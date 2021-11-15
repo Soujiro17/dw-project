@@ -5,12 +5,13 @@ import fotoLogin from "../../assets/foto-login.jpg";
 import { useHistory } from "react-router";
 
 const Login = () => {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, loggedInAdmin } = useContext(AuthContext);
   const history = useHistory();
 
   useEffect(() => {
     if (loggedIn) return history.push("/dashboard");
-  }, [loggedIn, history]);
+    else if (loggedInAdmin) return history.push("/admin");
+  }, [loggedIn, loggedInAdmin, history]);
 
   return (
     <Layout>

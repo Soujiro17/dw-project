@@ -11,6 +11,7 @@ export interface Usuario {
   Apellidos: string;
   Rut: Number;
   Saldo: number;
+  typeAccount: string;
 }
 
 interface Props {
@@ -22,6 +23,7 @@ const userDefault: Usuario = {
   Apellidos: "",
   Rut: 0,
   Saldo: 0,
+  typeAccount: "",
 };
 
 const UserContext = createContext<Context>({} as Context);

@@ -117,9 +117,9 @@ router.get("/loggedIn", async (req, res) => {
 
     jwt.verify(token, process.env.JWT_SECRET);
 
-    res.send(true);
+    res.json({ loggedIn: true, typeAccount: "cliente" });
   } catch (err) {
-    res.json(false);
+    res.json({ loggedIn: true, typeAccount: "cliente" });
   }
 });
 

@@ -35,7 +35,7 @@ const Header = (props: Props) => {
               <div
                 className="iconos"
                 onClick={() => {
-                  cerrarSesion();
+                  cerrarSesion(props.usuario.typeAccount);
                   window.location.reload();
                 }}
               >
