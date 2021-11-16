@@ -3,7 +3,10 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-const db = require("./database");
+
+// Db connection
+require("./database/databaseMySql");
+require("./database/dataBaseMongoDb");
 
 const PORT = process.env.PORT || 5000;
 

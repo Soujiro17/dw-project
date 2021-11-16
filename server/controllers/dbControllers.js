@@ -1,4 +1,4 @@
-const db = require("../database");
+const db = require("../database/databaseMySql");
 
 const getAll = (tableName) => {
   return db.query(`SELECT * FROM ${tableName}`, { type: db.QueryTypes.SELECT });

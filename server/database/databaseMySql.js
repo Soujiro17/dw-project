@@ -18,7 +18,7 @@ async function inicializar() {
   try {
     await db.authenticate();
     await db.sync();
-    console.log("Database conectada");
+    console.log("Mysql Database conectada");
   } catch {
     console.log("Error al conectar con la base de datos");
   }
