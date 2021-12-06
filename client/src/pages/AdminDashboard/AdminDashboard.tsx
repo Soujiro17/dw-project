@@ -30,12 +30,17 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    /*await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
-      setSolicitudes(res.data);
-    });*/
-    await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
-      setSolicitudes(res.data);
-    });
+    if (process.env.MONGO) {
+      await axiosInstance
+        .get<Solicitud[]>("/adminMongo/solicitudes")
+        .then((res) => {
+          setSolicitudes(res.data);
+        });
+    } else {
+      await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+        setSolicitudes(res.data);
+      });
+    }
   };
 
   const handleRequestStatus = async (solicitud: Solicitud, boolean: Number) => {
@@ -44,21 +49,32 @@ const AdminDashboard = () => {
     } else {
       if (!window.confirm("¿Estás seguro de rechazar la solicitud?")) return;
     }
-    await axiosInstance
-      /*.put("customerMongo/actualizarSolicitud", {
-        id: solicitud.Id_solicitud,
-        atributos: { aprobado: boolean },
-      })*/
-      .put("customer/actualizarSolicitud", {
-        id: solicitud.Id_solicitud,
-        atributos: { Aprobado: boolean },
-      })
-      .then(async (res) => {
-        toast.success("Solicitud Actualizada");
-        await getSolicitudes();
-        console.log(await getSolicitudes());
-      })
-      .catch((err) => toast.error(`${err}`));
+
+    if (process.env.MONGO) {
+      await axiosInstance
+        .put("customerMongo/actualizarSolicitud", {
+          id: solicitud.Id_solicitud,
+          atributos: { aprobado: boolean },
+        })
+        .then(async (res) => {
+          toast.success("Solicitud Actualizada");
+          await getSolicitudes();
+          console.log(await getSolicitudes());
+        })
+        .catch((err) => toast.error(`${err}`));
+    } else {
+      await axiosInstance
+        .put("customer/actualizarSolicitud", {
+          id: solicitud.Id_solicitud,
+          atributos: { Aprobado: boolean },
+        })
+        .then(async (res) => {
+          toast.success("Solicitud Actualizada");
+          await getSolicitudes();
+          console.log(await getSolicitudes());
+        })
+        .catch((err) => toast.error(`${err}`));
+    }
   };
 
   useEffect(() => {

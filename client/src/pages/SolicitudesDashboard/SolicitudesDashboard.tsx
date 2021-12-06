@@ -28,12 +28,19 @@ const SolicitudesDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    await axiosInstance
-      //.get<Solicitud[]>("/customerMongo/solicitudes")
-      .get<Solicitud[]>("/customer/solicitudes")
-      .then((res) => {
-        setSolicitudes(res.data);
-      });
+    if (process.env.MONGO) {
+      await axiosInstance
+        .get<Solicitud[]>("/customerMongo/solicitudes")
+        .then((res) => {
+          setSolicitudes(res.data);
+        });
+    } else {
+      await axiosInstance
+        .get<Solicitud[]>("/customer/solicitudes")
+        .then((res) => {
+          setSolicitudes(res.data);
+        });
+    }
   };
 
   useEffect(() => {

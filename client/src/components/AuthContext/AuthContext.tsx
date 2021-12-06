@@ -26,38 +26,46 @@ const AuthContextProvider = ({ children }: Props) => {
 
   const getLoggedIn = async () => {
     setLoading(true);
-    /*
+    if (process.env.REACT_APP_MONGO) {
       await axiosInstance.get<LoggedIn>("authMongo/loggedIn").then((res) => {
         setLoggedInAdmin(res.data.loggedIn);
-    });
-    */
-    await axiosInstance.get<LoggedIn>("auth/loggedIn").then((res) => {
-      setLoggedIn(res.data.loggedIn);
-    });
+      });
+    } else {
+      await axiosInstance.get<LoggedIn>("auth/loggedIn").then((res) => {
+        setLoggedIn(res.data.loggedIn);
+      });
+    }
     setLoading(false);
   };
 
   const getLoggedInAdmin = async () => {
     setLoading(true);
-    /*
-    await axiosInstance.get<LoggedIn>("adminMongo/loggedIn").then((res) => {
-      setLoggedInAdmin(res.data.loggedIn);
-    });
-    */
-    await axiosInstance.get<LoggedIn>("admin/loggedIn").then((res) => {
-      setLoggedInAdmin(res.data.loggedIn);
-    });
+    if (process.env.REACT_APP_MONGO) {
+      await axiosInstance.get<LoggedIn>("adminMongo/loggedIn").then((res) => {
+        setLoggedInAdmin(res.data.loggedIn);
+      });
+    } else {
+      await axiosInstance.get<LoggedIn>("admin/loggedIn").then((res) => {
+        setLoggedInAdmin(res.data.loggedIn);
+      });
+    }
     setLoading(false);
   };
 
   const cerrarSesion = async (typeAccount: string) => {
     setLoading(true);
     if (typeAccount === "admin") {
-      await axiosInstance.get("admin/logout");
-      //await axiosInstance.get("adminMongo/logout");
+      if (process.env.REACT_APP_MONGO) {
+        await axiosInstance.get("authMongo/logout");
+      } else {
+        await axiosInstance.get("admin/logout");
+      }
     } else {
-      await axiosInstance.get("auth/logout");
-      //await axiosInstance.get("authMongo/logout");
+      if (process.env.REACT_APP_MONGO) {
+        await axiosInstance.get("authMongo/logout");
+      } else {
+        await axiosInstance.get("auth/logout");
+      }
     }
     setLoading(false);
   };

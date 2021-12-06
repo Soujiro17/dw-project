@@ -29,17 +29,29 @@ const SolicitarRetiro = () => {
       return;
     }
 
-    await axiosInstance
-      //.post("customerMongo/crearSolicitud", { Monto: monto })
-      .post("customer/crearSolicitud", { Monto: monto })
-      .then(() => {
-        getCustomer();
-        history.push("/dashboard");
-        toast.success("Solicitud enviada");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (process.env.MONGO) {
+      await axiosInstance
+        .post("customerMongo/crearSolicitud", { Monto: monto })
+        .then(() => {
+          getCustomer();
+          history.push("/dashboard");
+          toast.success("Solicitud enviada");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      await axiosInstance
+        .post("customer/crearSolicitud", { Monto: monto })
+        .then(() => {
+          getCustomer();
+          history.push("/dashboard");
+          toast.success("Solicitud enviada");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   };
 
   const cancelarSolicitud = () => {

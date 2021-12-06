@@ -18,33 +18,61 @@ const LoginForm: React.FC<{ typeAccount: string }> = ({ typeAccount }) => {
   const handleLogin = async (ev: React.MouseEvent) => {
     ev.preventDefault();
     if (typeAccount === "admin") {
-      await axiosInstance
-        //.post("adminMongo/login", { rut: clean(Rut), contraseña: Contraseña })
-        .post("admin/login", { Rut: clean(Rut), Contraseña })
-        .then((res) => {
-          toast.success("Sesión iniciada con éxito");
-          getLoggedInAdmin();
-          getCustomer();
-        })
-        .catch((err) =>
-          toast.error(
-            "Error al iniciar sesión. Por favor, verifica bien tus datos"
-          )
-        );
+      if (process.env.REACT_APP_MONGO) {
+        await axiosInstance
+          .post("adminMongo/login", { rut: clean(Rut), contraseña: Contraseña })
+          .then((res) => {
+            toast.success("Sesión iniciada con éxito");
+            getLoggedInAdmin();
+            getCustomer();
+          })
+          .catch((err) =>
+            toast.error(
+              "Error al iniciar sesión. Por favor, verifica bien tus datos"
+            )
+          );
       } else {
         await axiosInstance
-        //.post("authMongo/login", { rut: clean(Rut), contraseña: Contraseña })
-        .post("auth/login", { Rut: clean(Rut), Contraseña })
-        .then((res) => {
-          toast.success("Sesión iniciada con éxito");
-          getLoggedIn();
-          getCustomer();
-        })
-        .catch((err) =>
-          toast.error(
-            "Error al iniciar sesión. Por favor, verifica bien tus datos"
-          )
-        );
+          .post("admin/login", { Rut: clean(Rut), Contraseña })
+          .then((res) => {
+            toast.success("Sesión iniciada con éxito");
+            getLoggedInAdmin();
+            getCustomer();
+          })
+          .catch((err) =>
+            toast.error(
+              "Error al iniciar sesión. Por favor, verifica bien tus datos"
+            )
+          );
+      }
+    } else {
+      if (process.env.REACT_APP_MONGO) {
+        await axiosInstance
+          .post("authMongo/login", { rut: clean(Rut), contraseña: Contraseña })
+          .then((res) => {
+            toast.success("Sesión iniciada con éxito");
+            getLoggedIn();
+            getCustomer();
+          })
+          .catch((err) =>
+            toast.error(
+              "Error al iniciar sesión. Por favor, verifica bien tus datos"
+            )
+          );
+      } else {
+        await axiosInstance
+          .post("auth/login", { Rut: clean(Rut), Contraseña })
+          .then((res) => {
+            toast.success("Sesión iniciada con éxito");
+            getLoggedIn();
+            getCustomer();
+          })
+          .catch((err) =>
+            toast.error(
+              "Error al iniciar sesión. Por favor, verifica bien tus datos"
+            )
+          );
+      }
     }
   };
 
