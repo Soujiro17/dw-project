@@ -18,7 +18,10 @@ router.get("/info", auth, async (req, res) => {
       message: "El usuario no existe",
     });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51adc9a3496475b16df3e7b4bc85b0a13d8ffc68
   const info = {
     Rut: usuario[0]?.Rut || ejecutivo[0]?.Rut,
     Nombres: usuario[0]?.Nombres || ejecutivo[0]?.Nombres,
@@ -67,8 +70,6 @@ router.post("/crearSolicitud", auth, async (req, res) => {
       message: "El monto es mayor al 10% del sueldo",
     });
   }
-
-  console.log("caca poto peo");
 
   await updateData("usuario", "Rut", req.user, {
     Saldo: usuario[0].Saldo - parseInt(req.body.Monto),
