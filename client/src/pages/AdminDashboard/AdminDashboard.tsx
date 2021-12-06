@@ -30,12 +30,12 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
-      setSolicitudes(res.data);
-    });
-    /*await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+    /*await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
       setSolicitudes(res.data);
     });*/
+    await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+      setSolicitudes(res.data);
+    });
   };
 
   const handleRequestStatus = async (
@@ -49,14 +49,14 @@ const AdminDashboard = () => {
     }
     console.log(boolean)
     await axiosInstance
-      .put("customerMongo/actualizarSolicitud", {
+      /*.put("customerMongo/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
         atributos: { aprobado: boolean },
-      })
-      /*.put("customer/actualizarSolicitud", {
+      })*/
+      .put("customer/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
         atributos: { Aprobado: Number },
-      })*/
+      })
       .then( async (res) => {
         toast.success("Solicitud Actualizada");
         await getSolicitudes();

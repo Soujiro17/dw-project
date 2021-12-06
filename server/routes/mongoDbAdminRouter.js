@@ -64,22 +64,21 @@ router.post("/sign", async (req, res) => {
 router.get("/solicitudes", async (req, res) => {
   const solicitudes = await SolicitudDeRetiro.find({}).exec();
   const informationResponse =  await Promise.all(
-    solicitudes.map( async ( { _id, rut_cliente, rut_empleador, monto, aprobado, fecha_solicitud } ) => {
+    solicitudes.filter( ( {aprobado} ) => aprobado === -1).map( async ( { _id, rut_cliente, rut_empleador, monto, aprobado, fecha_solicitud } ) => {
       const usuario = await Usuario.findOne( { rut: rut_cliente } ).exec();
-      return {
-        Id_solicitud: _id,
-        Rut: rut_cliente,
-        Nombres: usuario.nombres,
-        Apellidos: usuario.apellidos,
-        Email: usuario.email,
-        Telefono: usuario.telefono,
-        Monto: monto,
-        Aprobado: aprobado,
-        Fecha_solicitud: fecha_solicitud,
-      };
-    })
+        return {
+          Id_solicitud: _id,
+          Rut: rut_cliente,
+          Nombres: usuario.nombres,
+          Apellidos: usuario.apellidos,
+          Email: usuario.email,
+          Telefono: usuario.telefono,
+          Monto: monto,
+          Aprobado: aprobado,
+          Fecha_solicitud: fecha_solicitud,
+        };
+      })
   )
-  console.log(informationResponse)
   res.status(200).json(informationResponse);
 });
 

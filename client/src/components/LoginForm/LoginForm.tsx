@@ -19,8 +19,8 @@ const LoginForm: React.FC<{ typeAccount: string }> = ({ typeAccount }) => {
     ev.preventDefault();
     if (typeAccount === "admin") {
       await axiosInstance
-        .post("adminMongo/login", { rut: clean(Rut), contraseña: Contraseña })
-        //.post("admin/login", { Rut: clean(Rut), Contraseña })
+        //.post("adminMongo/login", { rut: clean(Rut), contraseña: Contraseña })
+        .post("admin/login", { Rut: clean(Rut), Contraseña })
         .then((res) => {
           toast.success("Sesión iniciada con éxito");
           getLoggedInAdmin();
@@ -33,8 +33,8 @@ const LoginForm: React.FC<{ typeAccount: string }> = ({ typeAccount }) => {
         );
       } else {
         await axiosInstance
-        .post("authMongo/login", { rut: clean(Rut), contraseña: Contraseña })
-        //.post("auth/login", { Rut: clean(Rut), Contraseña })
+        //.post("authMongo/login", { rut: clean(Rut), contraseña: Contraseña })
+        .post("auth/login", { Rut: clean(Rut), Contraseña })
         .then((res) => {
           toast.success("Sesión iniciada con éxito");
           getLoggedIn();
