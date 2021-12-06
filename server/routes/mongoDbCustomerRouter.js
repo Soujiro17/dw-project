@@ -12,6 +12,7 @@ const SolicitudDeRetiro = require("../models/solicitud_de_retiro.js");
 
 router.get("/info", auth, async (req, res) => {
   const usuario = await Usuario.findOne({ rut: req.user }).exec();
+
   const ejecutivo = await Ejecutivo.findOne({ rut: req.user }).exec();
   if (!usuario && !ejecutivo)
     return res.status(400).json({
@@ -26,6 +27,9 @@ router.get("/info", auth, async (req, res) => {
     Saldo: usuario?.saldo || ejecutivo?.saldo,
     typeAccount: usuario ? "cliente" : "admin",
   };
+
+  console.log(info);
+
   res.json(info);
 });
 

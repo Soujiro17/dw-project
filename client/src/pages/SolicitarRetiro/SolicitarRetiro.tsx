@@ -29,7 +29,7 @@ const SolicitarRetiro = () => {
       return;
     }
 
-    if (process.env.MONGO) {
+    if (process.env.REACT_APP_MONGO) {
       await axiosInstance
         .post("customerMongo/crearSolicitud", { Monto: monto })
         .then(() => {

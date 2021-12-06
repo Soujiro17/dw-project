@@ -25,6 +25,7 @@ router.get("/info", auth, async (req, res) => {
     Saldo: usuario[0]?.Saldo || ejecutivo[0]?.Saldo || 0,
     typeAccount: usuario[0] ? "cliente" : "admin",
   };
+
   res.json(info);
 });
 

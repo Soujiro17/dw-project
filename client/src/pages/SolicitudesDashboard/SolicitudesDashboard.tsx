@@ -28,7 +28,7 @@ const SolicitudesDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    if (process.env.MONGO) {
+    if (process.env.REACT_APP_MONGO) {
       await axiosInstance
         .get<Solicitud[]>("/customerMongo/solicitudes")
         .then((res) => {

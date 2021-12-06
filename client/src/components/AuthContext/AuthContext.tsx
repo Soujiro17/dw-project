@@ -28,7 +28,8 @@ const AuthContextProvider = ({ children }: Props) => {
     setLoading(true);
     if (process.env.REACT_APP_MONGO) {
       await axiosInstance.get<LoggedIn>("authMongo/loggedIn").then((res) => {
-        setLoggedInAdmin(res.data.loggedIn);
+        console.log(res.data);
+        setLoggedIn(res.data.loggedIn);
       });
     } else {
       await axiosInstance.get<LoggedIn>("auth/loggedIn").then((res) => {
@@ -56,7 +57,7 @@ const AuthContextProvider = ({ children }: Props) => {
     setLoading(true);
     if (typeAccount === "admin") {
       if (process.env.REACT_APP_MONGO) {
-        await axiosInstance.get("authMongo/logout");
+        await axiosInstance.get("adminMongo/logout");
       } else {
         await axiosInstance.get("admin/logout");
       }
