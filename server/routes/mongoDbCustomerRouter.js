@@ -30,12 +30,12 @@ router.get("/info", auth, async (req, res) => {
 });
 
 router.get("/solicitudes", auth, async (req, res) => {
-  const solicitudes = await SolicitudDeRetiro.find({rut_cliente: req.user}).exec();
-
-  const informationResponse = solicitudes.map( ( { _id, rut_cliente, rut_empleador, monto, aprobado, fecha_solicitud } ) => {
+  const solicitudes = await SolicitudDeRetiro.find({cliente: req.userId})
+  .populate('cliente', 'rut').exec();
+  const informationResponse = solicitudes.map( ( { _id, cliente, monto, aprobado, fecha_solicitud } ) => {
     return {
       Id_solicitud: _id,
-      Rut: rut_cliente,
+      Rut: cliente.rut,
       Monto: monto,
       Aprobado: aprobado,
       Fecha_solicitud: fecha_solicitud,
@@ -54,15 +54,13 @@ router.get("/solicitudes", auth, async (req, res) => {
 
 router.put("/actualizarSolicitud", auth, async (req, res) => {
   const { id, atributos } = req.body;
-  console.log(req.body)
   try {
-    await SolicitudDeRetiro.findOneAndUpdate( { _id: id }, { aprobado: atributos.aprobado, rut_empleador: req.user });
+    await SolicitudDeRetiro.findOneAndUpdate( { _id: id }, { aprobado: atributos.aprobado, empleador: req.userId });
     return res.status(200).json({
       status: 200,
       message: `Solicitud actualizada`,
     });
   } catch (error) {
-    console.log(error.message)
     return res.status(400).json({
       status: 400,
       message: "La solicitud no existe",
@@ -73,9 +71,6 @@ router.put("/actualizarSolicitud", auth, async (req, res) => {
 router.post("/crearSolicitud", auth, async (req, res) => {
   try{
     const usuario = await Usuario.findOne( { rut: req.user } ).exec();
-
-    console.log(usuario);
-    console.log(req.body);
   
     if (req.body.Monto > usuario.saldo * 0.1 && usuario.saldo > 1000000) {
       return res.json({
@@ -87,13 +82,12 @@ router.post("/crearSolicitud", auth, async (req, res) => {
     await Usuario.findOneAndUpdate({ rut: req.user }, { saldo: usuario.saldo - parseInt(req.body.Monto) });
   
     const newSolicitud = new SolicitudDeRetiro({
-      rut_cliente: req.user,
+      cliente: usuario._id,
       monto: parseInt(req.body.Monto),
     });
     await newSolicitud.save();
     res.json({ status: 200, message: "Solicitud creada" });
   }catch(error){
-    console.log(error.message)
     return res.status(400).json({
       status: 500,
       message: error.message,

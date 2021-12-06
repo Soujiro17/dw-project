@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    /*await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
+   /*await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
       setSolicitudes(res.data);
     });*/
     await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {

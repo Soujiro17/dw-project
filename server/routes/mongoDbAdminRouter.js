@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const Usuario = require('../models/usuario');
 const Ejecutivo = require('../models/ejecutivo');
 const SolicitudDeRetiro = require('../models/solicitud_de_retiro.js');
 
@@ -48,6 +47,7 @@ router.post("/sign", async (req, res) => {
   const token = jwt.sign(
     {
       user: newEjecutivo.rut,
+      userId: newEjecutivo._id,
     },
     process.env.JWT_SECRET
   );
@@ -62,17 +62,18 @@ router.post("/sign", async (req, res) => {
 });
 
 router.get("/solicitudes", async (req, res) => {
-  const solicitudes = await SolicitudDeRetiro.find({}).exec();
+  const solicitudes = await SolicitudDeRetiro.find({}).
+    populate( 'cliente', '-_id rut nombres apellidos email telefono' ).exec();
+
   const informationResponse =  await Promise.all(
-    solicitudes.filter( ( {aprobado} ) => aprobado === -1).map( async ( { _id, rut_cliente, rut_empleador, monto, aprobado, fecha_solicitud } ) => {
-      const usuario = await Usuario.findOne( { rut: rut_cliente } ).exec();
+    solicitudes.filter( ( {aprobado} ) => aprobado === -1).map( async ( { _id, cliente, monto, aprobado, fecha_solicitud } ) => {
         return {
           Id_solicitud: _id,
-          Rut: rut_cliente,
-          Nombres: usuario.nombres,
-          Apellidos: usuario.apellidos,
-          Email: usuario.email,
-          Telefono: usuario.telefono,
+          Rut: cliente.rut,
+          Nombres: cliente.nombres,
+          Apellidos: cliente.apellidos,
+          Email: cliente.email,
+          Telefono: cliente.telefono,
           Monto: monto,
           Aprobado: aprobado,
           Fecha_solicitud: fecha_solicitud,
@@ -106,10 +107,10 @@ router.post("/login", async (req, res) => {
     return res
       .status(401)
       .json({ status: 401, message: "Contraseña incorrecta" });
-
   const tokenadm = jwt.sign(
     {
       user: ejecutivo.rut,
+      userId: ejecutivo._id,
     },
     process.env.JWT_SECRET
   );

@@ -18,7 +18,6 @@ router.get("/info", auth, async (req, res) => {
       message: "El usuario no existe",
     });
 
-  console.log(usuario[0].Saldo);
 
   const info = {
     Rut: usuario[0]?.Rut || ejecutivo[0]?.Rut,

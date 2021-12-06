@@ -45,6 +45,7 @@ router.post("/sign", async (req, res) => {
   const token = jwt.sign(
     {
       user: newUser.rut,
+      userId: newUser._id,
     },
     process.env.JWT_SECRET
   );
@@ -88,6 +89,7 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign(
     {
       user: usuario.rut,
+      userId: usuario._id,
     },
     process.env.JWT_SECRET
   );
