@@ -67,8 +67,6 @@ router.post("/crearSolicitud", auth, async (req, res) => {
     });
   }
 
-  console.log("caca poto peo");
-
   await updateData("usuario", "Rut", req.user, {
     Saldo: usuario[0].Saldo - parseInt(req.body.Monto),
   });
