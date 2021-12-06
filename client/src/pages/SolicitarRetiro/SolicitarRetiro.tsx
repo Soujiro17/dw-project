@@ -7,7 +7,7 @@ import axiosInstance from "../../services/axiosInstance";
 import { useHistory } from "react-router";
 
 const SolicitarRetiro = () => {
-  const { usuario } = useContext(UserContext);
+  const { usuario, getCustomer } = useContext(UserContext);
 
   const [monto, setMonto] = useState<string>("");
 
@@ -33,6 +33,7 @@ const SolicitarRetiro = () => {
       //.post("customerMongo/crearSolicitud", { Monto: monto })
       .post("customer/crearSolicitud", { Monto: monto })
       .then(() => {
+        getCustomer();
         history.push("/dashboard");
         toast.success("Solicitud enviada");
       })

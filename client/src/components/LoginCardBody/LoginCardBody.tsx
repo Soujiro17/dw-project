@@ -3,7 +3,7 @@ import "./LoginCardBody.scss";
 import { LoginForm } from "..";
 
 const LoginCardBody = () => {
-  const [typeAccount, setTypeAccount] = useState<string>("");
+  const [typeAccount, setTypeAccount] = useState<string>("cliente");
 
   return (
     <div className="login-body">

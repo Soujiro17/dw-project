@@ -32,12 +32,13 @@ const UserContextProvider = ({ children }: Props) => {
   const [usuario, setUsuario] = useState<Usuario>(userDefault);
 
   const getCustomer = async () => {
-    await axiosInstance.get<Usuario>("customerMongo/info").then((res) => {
+    // await axiosInstance.get<Usuario>("customerMongo/info").then((res) => {
+    //   setUsuario(res.data);
+    // });
+    await axiosInstance.get<Usuario>("customer/info").then((res) => {
+      console.log(res.data);
       setUsuario(res.data);
     });
-    /*await axiosInstance.get<Usuario>("customer/info").then((res) => {
-      setUsuario(res.data);
-    });*/
   };
 
   useEffect(() => {
