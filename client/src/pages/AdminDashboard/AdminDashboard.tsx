@@ -30,6 +30,7 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
+<<<<<<< HEAD
     if (process.env.MONGO) {
       await axiosInstance
         .get<Solicitud[]>("/adminMongo/solicitudes")
@@ -41,6 +42,14 @@ const AdminDashboard = () => {
         setSolicitudes(res.data);
       });
     }
+=======
+   /*await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
+      setSolicitudes(res.data);
+    });*/
+    await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+      setSolicitudes(res.data);
+    });
+>>>>>>> 43fb89595cebe9e73b0bfa225cf2fb994a28b5bd
   };
 
   const handleRequestStatus = async (solicitud: Solicitud, boolean: Number) => {

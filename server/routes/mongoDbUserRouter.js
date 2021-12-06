@@ -3,10 +3,11 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const Usuario = require('../models/usuario');
+const Usuario = require("../models/usuario");
 
 router.post("/sign", async (req, res) => {
-  const { rut, nombres, apellidos, email, telefono, contraseña, id_direccion } = req.body;
+  const { rut, nombres, apellidos, email, telefono, contraseña, id_direccion } =
+    req.body;
 
   if (!nombres || !apellidos || !email || !rut || !contraseña || !id_direccion)
     return res
@@ -18,7 +19,7 @@ router.post("/sign", async (req, res) => {
       message: "La contraseña debe tener 6 caracteres como mínimo",
     });
 
-  const usuario = await Usuario.findOne( { rut } ).exec();
+  const usuario = await Usuario.findOne({ rut }).exec();
 
   if (usuario)
     return res.status(400).json({
@@ -45,6 +46,7 @@ router.post("/sign", async (req, res) => {
   const token = jwt.sign(
     {
       user: newUser.rut,
+      userId: newUser._id,
     },
     process.env.JWT_SECRET
   );
@@ -66,8 +68,7 @@ router.post("/login", async (req, res) => {
       .status(400)
       .json({ status: 400, message: "Por favor llena todos los campos" });
 
-  const usuario = await Usuario.findOne( { rut } ).exec();
-
+  const usuario = await Usuario.findOne({ rut }).exec();
 
   if (!usuario)
     return res.status(400).json({
@@ -88,6 +89,7 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign(
     {
       user: usuario.rut,
+      userId: usuario._id,
     },
     process.env.JWT_SECRET
   );

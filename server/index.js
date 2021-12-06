@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
+
 require("dotenv").config();
 
 // Db connection
@@ -29,7 +30,6 @@ app.use("/customer", require("./routes/customerRouter.js"));
 app.use("/authMongo", require("./routes/mongoDbUserRouter.js"));
 app.use("/adminMongo", require("./routes/mongoDbAdminRouter.js"));
 app.use("/customerMongo", require("./routes/mongoDbCustomerRouter.js"));
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
