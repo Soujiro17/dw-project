@@ -29,6 +29,7 @@ const SolicitudesDashboard = () => {
 
   const getSolicitudes = async () => {
     await axiosInstance
+      //.get<Solicitud[]>("/customerMongo/solicitudes")
       .get<Solicitud[]>("/customer/solicitudes")
       .then((res) => {
         setSolicitudes(res.data);

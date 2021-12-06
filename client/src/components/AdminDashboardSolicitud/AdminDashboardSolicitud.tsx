@@ -7,8 +7,8 @@ import { format } from "rut.js";
 
 const AdminDashboardSolicitud: React.FC<{
   solicitud: Solicitud;
-  handleRequestStatus: (solicitud: Solicitud, boolean: Boolean) => void;
-  defaultItem: Boolean;
+  handleRequestStatus: (solicitud: Solicitud, boolean: Number) => void;
+  defaultItem: Number;
 }> = ({ solicitud, handleRequestStatus, defaultItem }) => {
   if (defaultItem) {
     return (
@@ -47,13 +47,13 @@ const AdminDashboardSolicitud: React.FC<{
       <div className="solicitud-aprobarorechazar">
         <button
           className="btn"
-          onClick={() => handleRequestStatus(solicitud, true)}
+          onClick={() => handleRequestStatus(solicitud, 1)}
         >
           Aprobar
         </button>
         <button
           className="btn rosado"
-          onClick={() => handleRequestStatus(solicitud, false)}
+          onClick={() => handleRequestStatus(solicitud, 0)}
         >
           Rechazar
         </button>

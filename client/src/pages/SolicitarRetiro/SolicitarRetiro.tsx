@@ -30,6 +30,7 @@ const SolicitarRetiro = () => {
     }
 
     await axiosInstance
+      //.post("customerMongo/crearSolicitud", { Monto: monto })
       .post("customer/crearSolicitud", { Monto: monto })
       .then(() => {
         history.push("/dashboard");
