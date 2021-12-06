@@ -47,7 +47,6 @@ const AdminDashboard = () => {
     } else {
       if (!window.confirm("¿Estás seguro de rechazar la solicitud?")) return;
     }
-    console.log(boolean)
     await axiosInstance
       /*.put("customerMongo/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
