@@ -26,6 +26,11 @@ const AuthContextProvider = ({ children }: Props) => {
 
   const getLoggedIn = async () => {
     setLoading(true);
+    /*
+      await axiosInstance.get<LoggedIn>("authMongo/loggedIn").then((res) => {
+        setLoggedInAdmin(res.data.loggedIn);
+    });
+    */
     await axiosInstance.get<LoggedIn>("auth/loggedIn").then((res) => {
       setLoggedIn(res.data.loggedIn);
     });
@@ -34,6 +39,11 @@ const AuthContextProvider = ({ children }: Props) => {
 
   const getLoggedInAdmin = async () => {
     setLoading(true);
+    /*
+    await axiosInstance.get<LoggedIn>("adminMongo/loggedIn").then((res) => {
+      setLoggedInAdmin(res.data.loggedIn);
+    });
+    */
     await axiosInstance.get<LoggedIn>("admin/loggedIn").then((res) => {
       setLoggedInAdmin(res.data.loggedIn);
     });
@@ -44,8 +54,10 @@ const AuthContextProvider = ({ children }: Props) => {
     setLoading(true);
     if (typeAccount === "admin") {
       await axiosInstance.get("admin/logout");
+      //await axiosInstance.get("adminMongo/logout");
     } else {
       await axiosInstance.get("auth/logout");
+      //await axiosInstance.get("authMongo/logout");
     }
     setLoading(false);
   };

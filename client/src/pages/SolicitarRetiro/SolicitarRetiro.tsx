@@ -30,7 +30,8 @@ const SolicitarRetiro = () => {
     }
 
     await axiosInstance
-      .post("customer/crearSolicitud", { Monto: monto })
+      .post("customerMongo/crearSolicitud", { Monto: monto })
+      //.post("customer/crearSolicitud", { Monto: monto })
       .then(() => {
         history.push("/dashboard");
         toast.success("Solicitud enviada");

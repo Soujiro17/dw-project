@@ -11,5 +11,8 @@ const connection = mongoose.connection;
 connection.once('open', () =>{
     console.log('MongoDB is connected');
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 66cc81192e0c34c883478b9eec710a010974f5ac
 

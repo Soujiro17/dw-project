@@ -30,29 +30,37 @@ const AdminDashboard = () => {
   const [solicitudes, setSolicitudes] = React.useState<Solicitud[]>([]);
 
   const getSolicitudes = async () => {
-    await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+    await axiosInstance.get<Solicitud[]>("/adminMongo/solicitudes").then((res) => {
       setSolicitudes(res.data);
     });
+    /*await axiosInstance.get<Solicitud[]>("/admin/solicitudes").then((res) => {
+      setSolicitudes(res.data);
+    });*/
   };
 
   const handleRequestStatus = async (
     solicitud: Solicitud,
-    boolean: Boolean
+    boolean: Number
   ) => {
     if (boolean) {
       if (!window.confirm("¿Estás seguro de aprobar la solicitud?")) return;
     } else {
       if (!window.confirm("¿Estás seguro de rechazar la solicitud?")) return;
     }
-
+    console.log(boolean)
     await axiosInstance
-      .put("customer/actualizarSolicitud", {
+      .put("customerMongo/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
-        atributos: { Aprobado: boolean },
+        atributos: { aprobado: boolean },
       })
-      .then((res) => {
+      /*.put("customer/actualizarSolicitud", {
+        id: solicitud.Id_solicitud,
+        atributos: { Aprobado: Number },
+      })*/
+      .then( async (res) => {
         toast.success("Solicitud Actualizada");
-        getSolicitudes();
+        await getSolicitudes();
+        console.log(await getSolicitudes())
       })
       .catch((err) => toast.error(`${err}`));
   };
@@ -68,14 +76,14 @@ const AdminDashboard = () => {
           <AdminDashboardSolicitud
             solicitud={defaultItem}
             handleRequestStatus={handleRequestStatus}
-            defaultItem={true}
+            defaultItem={1}
           />
 
           {solicitudes.map((solicitud) => (
             <AdminDashboardSolicitud
               solicitud={solicitud}
               handleRequestStatus={handleRequestStatus}
-              defaultItem={false}
+              defaultItem={0}
             />
           ))}
         </div>
