@@ -18,11 +18,13 @@ router.get("/info", auth, async (req, res) => {
       message: "El usuario no existe",
     });
 
+  console.log(usuario[0].Saldo);
+
   const info = {
     Rut: usuario[0]?.Rut || ejecutivo[0]?.Rut,
     Nombres: usuario[0]?.Nombres || ejecutivo[0]?.Nombres,
     Apellidos: usuario[0]?.Apellidos || ejecutivo[0]?.Apellidos,
-    Saldo: usuario[0]?.Saldo || ejecutivo[0]?.Saldo,
+    Saldo: usuario[0]?.Saldo || ejecutivo[0]?.Saldo || 0,
     typeAccount: usuario[0] ? "cliente" : "admin",
   };
   res.json(info);
@@ -60,15 +62,14 @@ router.put("/actualizarSolicitud", auth, async (req, res) => {
 router.post("/crearSolicitud", auth, async (req, res) => {
   const usuario = await getByID("usuario", "Rut", req.user);
 
-  console.log(usuario);
-  console.log(req.body);
-
   if (req.body.Monto > usuario[0].Saldo * 0.1 && usuario[0].Saldo > 1000000) {
     return res.status(400).json({
       status: 400,
       message: "El monto es mayor al 10% del sueldo",
     });
   }
+
+  console.log("caca poto peo");
 
   await updateData("usuario", "Rut", req.user, {
     Saldo: usuario[0].Saldo - parseInt(req.body.Monto),

@@ -38,16 +38,12 @@ const AdminDashboard = () => {
     });
   };
 
-  const handleRequestStatus = async (
-    solicitud: Solicitud,
-    boolean: Number
-  ) => {
+  const handleRequestStatus = async (solicitud: Solicitud, boolean: Number) => {
     if (boolean) {
       if (!window.confirm("¿Estás seguro de aprobar la solicitud?")) return;
     } else {
       if (!window.confirm("¿Estás seguro de rechazar la solicitud?")) return;
     }
-    console.log(boolean)
     await axiosInstance
       /*.put("customerMongo/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
@@ -55,12 +51,12 @@ const AdminDashboard = () => {
       })*/
       .put("customer/actualizarSolicitud", {
         id: solicitud.Id_solicitud,
-        atributos: { Aprobado: Number },
+        atributos: { Aprobado: boolean },
       })
-      .then( async (res) => {
+      .then(async (res) => {
         toast.success("Solicitud Actualizada");
         await getSolicitudes();
-        console.log(await getSolicitudes())
+        console.log(await getSolicitudes());
       })
       .catch((err) => toast.error(`${err}`));
   };
